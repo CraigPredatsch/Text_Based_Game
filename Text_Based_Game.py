@@ -7,6 +7,35 @@ new_location = []
 room = "blank"
 key = ""
 
+items1 = {'Dark Key': 1}
+items_copy1 = {'Dark Key': 1}
+
+items2 = {'Desert Key': 1}
+items_copy2= {'Desert Key': 1}
+
+items3 = {'Grass Key': 2, 'Storm Key': 2}
+items_copy3 = {'Grass Key': 2, 'Storm Key': 2}
+
+items4 = {'Enchanted Key': 1}
+items_copy4 = {'Enchanted Key': 1}
+
+items5 = {'Enchanted Red Herring': 0}
+items_copy5 = {'Enchanted Red Herring': 0}
+
+items6 = {'Frost Key': 2}
+items_copy6 = {'Frost Key': 2}
+
+items7 = {'Icy Sense of Humor': 0}
+items_copy7 = {'Icy Sense of Humor': 0}
+
+items8 = {'Castle Key': 0}
+items_copy8 = {'Castle Key': 0}
+
+
+
+items = {}
+items_copy = {}
+
 #/**********************************************************/
 #/***              Player Movement Section               ***/
 #/**********************************************************/
@@ -576,7 +605,10 @@ def add_item():                     #Function to add an item to the user's inven
 
     take = int(fake)                           #Variable take = user input
     if take == 3:
-        movement()                              #Skip inventory additions, re-run movement() function if choice = 3
+        print('You chose to not pick up any items.')
+        items = {}                              # Reset items to blank
+        for thing in items_copy:                # Set items = items_copy
+            items[thing] = items_copy[thing]
     elif take == 1:
         print ('Which object would you like to take?')
         print (items_copy)                      #Prints item list if choice = 1
@@ -652,17 +684,149 @@ def drop_item():                                #Function that allows user to dr
 
 
 def enter_room():                               #Function that runs as a user enters a room
-    global room
-    global items
-    global items_copy
-    print ('You have entered the %s room' %room)
-    if room == "first":                             #Different conditions for each uniquely named room
-        items = {'Castle Key': 1, 'pants': 2}       #Items found in that specific room
-        items_copy = {'Castle Key': 1, 'pants': 2}  #copy of dictionary that will be changing
-    else:                                           #Repeat for next room
-        items = {'Castle Key': 1, 'pen' : 2 }
-        items_copy= {'Castle Key': 1, 'pen' : 2 }
-    add_item()
+    global room, items, items_copy, items1, items2, items3, items4, items5, items6, items7, items8, items_copy1, items_copy2, items_copy3, items_copy4, items_copy5, items_copy6, items_copy7, items_copy8
+
+    print ('You have entered the %s' %room)
+
+    if room == "Outer Gates":                                   #If room is 'specified location'
+        items = {}                                              #Reset items to blank
+        items_copy = {}                                         #Reset items_copy to blank
+        for each in items1:                                     #Set items = items1
+            items[each] = items1[each]
+        for each_copy in items_copy1:                           #Set items_copy = items_copy1
+            items_copy[each_copy] = items_copy1[each_copy]
+
+        add_item()                                              #Run add_item()
+
+        items1 = {}                                             #Reset items1 to blank
+        items_copy1 = {}                                        #Reset items_copy1 to blank
+        for each in items:                                      #Set items1 = items (items should be different after add_items()
+            items1[each] = items[each]
+        for each_copy in items_copy:                            #Set items_copy1 = items_copy
+            items_copy1[each_copy] = items_copy[each_copy]
+
+    elif room == "Watchful Town":                               #Repeat item conditions for next room
+        items = {}
+        items_copy = {}
+        for each in items2:
+            items[each] = items2[each]
+        for each_copy in items_copy2:
+            items_copy[each_copy] = items_copy2[each_copy]
+
+        add_item()
+
+        items2 = {}
+        items_copy2 = {}
+        for each in items:
+            items2[each] = items[each]
+        for each_copy in items_copy:
+            items_copy2[each_copy] = items_copy[each_copy]
+
+    elif room == "Desolate Desert":                             #Repeat item conditions for next room
+        items = {}
+        items_copy = {}
+        for each in items3:
+            items[each] = items3[each]
+        for each_copy in items_copy3:
+            items_copy[each_copy] = items_copy3[each_copy]
+
+        add_item()
+
+        items3 = {}
+        items_copy3 = {}
+        for each in items:
+            items3[each] = items[each]
+        for each_copy in items_copy:
+            items_copy3[each_copy] = items_copy[each_copy]
+
+    elif room == "Vast Grasslands":                             #Repeat item conditions for next room
+        items = {}
+        items_copy = {}
+        for each in items4:
+            items[each] = items4[each]
+        for each_copy in items_copy4:
+            items_copy[each_copy] = items_copy4[each_copy]
+
+        add_item()
+
+        items4 = {}
+        items_copy4 = {}
+        for each in items:
+            items4[each] = items[each]
+        for each_copy in items_copy:
+            items_copy4[each_copy] = items_copy[each_copy]
+
+    elif room == "Enchanted City":                              #Repeat item conditions for next room
+        items = {}
+        items_copy = {}
+        for each in items5:
+            items[each] = items5[each]
+        for each_copy in items_copy5:
+            items_copy[each_copy] = items_copy5[each_copy]
+
+        add_item()
+
+        items5 = {}
+        items_copy5 = {}
+        for each in items:
+            items5[each] = items[each]
+        for each_copy in items_copy:
+            items_copy5[each_copy] = items_copy[each_copy]
+
+    elif room == "Stormy Bay":                                  #Repeat item conditions for next room
+        items = {}
+        items_copy = {}
+        for each in items6:
+            items[each] = items6[each]
+        for each_copy in items_copy6:
+            items_copy[each_copy] = items_copy6[each_copy]
+
+        add_item()
+
+        items6 = {}
+        items_copy6 = {}
+        for each in items:
+            items6[each] = items[each]
+        for each_copy in items_copy:
+            items_copy6[each_copy] = items_copy[each_copy]
+
+    elif room == "Frozen Pass":                                 #Repeat item conditions for next room
+        items = {}
+        items_copy = {}
+        for each in items7:
+            items[each] = items7[each]
+        for each_copy in items_copy7:
+            items_copy[each_copy] = items_copy7[each_copy]
+
+        add_item()
+
+        items7 = {}
+        items_copy7 = {}
+        for each in items:
+            items7[each] = items[each]
+        for each_copy in items_copy:
+            items_copy7[each_copy] = items_copy[each_copy]
+
+    elif room == "Blackened Waste":                             #Repeat item conditions for next room
+        items = {}
+        items_copy = {}
+        for each in items8:
+            items[each] = items8[each]
+        for each_copy in items_copy8:
+            items_copy[each_copy] = items_copy8[each_copy]
+
+        add_item()
+
+        items8 = {}
+        items_copy8 = {}
+        for each in items:
+            items8[each] = items[each]
+        for each_copy in items_copy:
+            items_copy8[each_copy] = items_copy[each_copy]
+
+    else:
+        print ('Congratulations! You have avoided your enemies and reached your home.')
+        exit()
 
 #add_item()
 
