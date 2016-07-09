@@ -36,21 +36,38 @@ items_copy8 = {'Castle Key': 0}
 items = {}
 items_copy = {}
 
+
+def intro():
+    print('Welcome to my game. Thank you for playing.')
+    time.sleep(1.5)
+    print('You are part of the great House Forwind.')
+    time.sleep(3)
+    print('While out hunting for food one day, you were ambushed and taken captive by your enemies, House Boglore.')
+    time.sleep(4)
+    print('When you awoke, you found yourself left out by the Boglore front gate with a note tied to your hand.')
+    time.sleep(4)
+    print('It reads:')
+    print("Wakey Wakey Forwind. Hope you had a good rest. You'll need your strength for the journey that comes next.")
+    time.sleep(4)
+    print("We will let you go home. Well, we will let you TRY to go home.")
+    time.sleep(4)
+    print("We may give you a little trouble along the way. But you can handle a little trouble right?")
+    time.sleep(4)
+    print("Moving along will also not be as easy pressing a button. We've set up road blocks all along the way.")
+    time.sleep(4)
+    print("Only special keys that we've hidden across the realm will allow you pass through.")
+    time.sleep(4)
+    print("Some of these keys will require a little puzzle solving to acquire. Time to start thinking outside the box.")
+    time.sleep(4)
+    print("Do you think you can make it home?")
+    time.sleep(3)
+    print("Well, let's find out. Good luck returning to Warm Hearth Castle. You're going to need it.")
+    time.sleep(4)
+
 #/**********************************************************/
 #/***              Player Movement Section               ***/
 #/**********************************************************/
 
-
-
-def run():                                                                                                                      #Function that starts the game
-    print ('Do you wish to move your character? You are currently located at location : [%d, %d]' %(vertical, horizontal))      #Tells the player where they are located
-    print ('Press 1 if yes. Press 2 if no.')
-    decision = int(input())                                                                       #User input that will determine if the player moves or not.
-    while (decision == 1):                                                                        #Run movement function if user input is 1.
-        movement()
-    else:
-        print ('You have stopped moving.')
-        exit()                                                                                    #Exit game if choice is 2
 
 
 def back_up():
@@ -140,6 +157,13 @@ def map():                                      #Function that shows the user wh
         back_up()
 
 
+def movement_choice():                                  #Ensures user input is one of the allowable responses.
+    global direction_enter
+    try:
+        mchoice = int(direction_enter)
+    except ValueError:
+        print("That is not a valid response. You need to input 1, 2, 3, 4, 5, or 6.")
+        movement()
 
 
 
@@ -148,11 +172,14 @@ def movement():                                         #Player movement functio
     global horizontal
     global proposed_vertical
     global proposed_horizontal
+    global direction_enter
     proposed_horizontal = horizontal
     proposed_vertical  = vertical
     print ('What direction would you like to move?')
-    print ('Press 1 to move North. Press 2 to move East. Press 3 to move South. Press 4 to move West. Press 5 to stop movement')
-    direction = int(input())
+    print ('Press 1 to move North. Press 2 to move East. Press 3 to move South. Press 4 to move West. Press 5 to add or drop an item. Press 6 to quit the game.')
+    direction_enter = input()                           #User input
+    movement_choice()                                   #Runs movement choice function
+    direction = int(direction_enter)                    #Ensure input is an integer
     if direction == 1:                                  #If User Input = 1
         if vertical < 1:                                #If the user is not already as far North as they are allowed to go
             proposed_vertical += 1                      #Add one to proposed_vertical
@@ -206,9 +233,15 @@ def movement():                                         #Player movement functio
             map()
             movement()
 
-    elif direction == 5:                                #Stopping movement and ending the game
-        print ('You have stopped moving.')
+    elif direction == 5:                                #Run add_item function
+        add_item()
+
+    elif direction == 6:                                #Stopping movement and ending the game
+        print ('You have ended the game.')
         exit()
+    else:
+        print('That is not a valid response. You need to enter 1, 2, 3, 4, 5, or 6.')
+        movement()
 
 
 
@@ -225,6 +258,7 @@ import time         #For pauses for dramatic effect
 TLVictory = False               #Initialize Boss conditions. These will come into play later so that a player only has to defeat each of them once.
 JLVictory = False
 CLVictory = False
+DragonVictory = False
 
 
 class NM():         #First character class
@@ -288,6 +322,40 @@ class Ogre(Monster):                    #Next subclass
     def __init__(self):
         super().__init__(at = 100, he = 200,kn = 3, tr = 4)
 
+class Dragon(Monster):                  #Next Subclass
+    def __init__(selfself):
+        super().__init__(at = 125, he = 525, kn = 2, tr = 2)
+
+
+def boss_battle():
+    global opp
+    global DragonVictory
+    global h_bank
+    global fail
+    opp = Dragon()
+    print('You must defeat the dragon the make it home.')
+    simple_stat()
+    knowledge()                                 #Run knowledge function
+    while opp.he > 0:                           #While opponent still has health points
+        if player.he > 0:                       #If the player has health points
+            battle_choice()
+            move = int(fail)                 #User input decides either attack or defend
+            if move == 1:
+                player_at()                     #Run player attack function
+                if opp.he <= 0:                 #If opponent's health is <= 0
+                    print ('Opponent has been defeated.')
+                    DragonVictory = True
+                    player.he += h_bank     #Fully restore health for beating a boss
+                    h_bank = 0              #Reset health bank to zero
+                else:                           #If opponent still has health points
+                    opp_at()                    #Run opponent attack function
+            elif move == 2:                     #If user input = 2, to defend and heal
+                defend_heal()                   #Run defend_heal() function
+                opp_at()                        #Run opponent attack function
+
+        else:                                   #If player has no health points remaining
+            print('You have been defeated. Game over.')
+            exit()                              #Exit game. Game over
 
 
 def stat():             #Function for displaying player's stats
@@ -302,8 +370,19 @@ def simple_stat():      #Function for displaying minor opponent's stats
     print ('''Stats:
     at = {} , he = {}, kn = {}, tr = {})'''.format(opp.at, opp.he, opp.kn, opp.tr).replace('.0', ''))
 
+def character_choice():                         #Function to make sure user input does not throw an error
+    global direction
+    global play_enter
+    try:
+        char_choice = int(play_enter)
+    except ValueError:
+        print("That is not a valid response. You need to input 1, 2, 3, 4, 5, or 6.")
+        char_select()
+
+
 def char_select():      #Character selection function
     global player
+    global play_num
     print ('Choose a character:') #Character Selection
     print( 'Press 1 for JS.')
     player = JS()       #Temporarily sets player to this character
@@ -317,7 +396,9 @@ def char_select():      #Character selection function
     player = NS()
     stat()
 
-    play_num = int(input())     #Character Selection
+    play_enter = int(input())     #Character Selection
+    character_choice()
+    play_num = int(play_num)
     if play_num == 1:           #If user input = 1
         player = JS()           #Player is JS()
         print ('You have chosen JS.')
@@ -327,6 +408,9 @@ def char_select():      #Character selection function
     elif play_num == 3:         #If user input = 3 player is NS()
         player = NS()
         print ('You have chosen NS')
+    else:
+        print('That is not a valid response. You must enter 1, 2, or 3.')
+        char_select()
 
 
 
@@ -470,12 +554,26 @@ def defend_heal():      #Player Heal Function
     else:
         print ('Your opponent is too fast. You were unable to heal.')
 
+def battle_choice():
+    global fail
+    print('Make your move. '
+          '(1) Attack'
+          '(2) Defend')
+    move = input()              # User input decides either attack or defend
+    try:
+        fail = int(move)        # Checks that the user input an integer
+    except ValueError:          # Throws this error response if not an integer
+        print('Sorry that is not a valid response. Please enter 1 or 2')
+        battle_choice()         # Re-run add_item() function
+
+
 def duel():         #Duel Function
     global TLVictory
     global JLVictory
     global CLVictory
     global opp
     global h_bank
+    global fail
     opponent = random.randint(0,1000)           #'opponent' = random number between 1 and 1000
     opp_num = 0
     if opponent <= 75:                          #If 'opponent' <= 75
@@ -526,14 +624,12 @@ def duel():         #Duel Function
         simple_stat()                           #Show smaller opponent's stats
         print ("your opponent is a Grunt")
 
-    print("You/re opponent has arrived.")
+    print("Your opponent has arrived.")
     knowledge()                                 #Run knowledge function
     while opp.he > 0:                           #While opponent still has health points
         if player.he > 0:                       #If the player has health points
-            print('Make your move. '
-                  '(1) Attack'
-                  '(2) Defend')
-            move = int(input())                 #User input decides either attack or defend
+            battle_choice()                     #Error Handling
+            move = int(fail)                    #User input decides either attack or defend
             if move == 1:
                 player_at()                     #Run player attack function
                 if opp.he <= 0:                 #If opponent's health is <= 0
@@ -590,6 +686,7 @@ item_weight = 0                     #Initial item weight
 def add_item():                     #Function to add an item to the user's inventory
     global item_total
     global item_weight
+    global fake
     global items
     global items_copy
     print ('You found the following items:')
@@ -603,7 +700,7 @@ def add_item():                     #Function to add an item to the user's inven
         print ('Sorry that is not a valid response. Please enter 1, 2, or 3.')
         add_item()                              #Re-run add_item() function
 
-    take = int(fake)                           #Variable take = user input
+    take = int(enter)                           #Variable take = user input
     if take == 3:
         print('You chose to not pick up any items.')
         items = {}                              # Reset items to blank
@@ -684,11 +781,11 @@ def drop_item():                                #Function that allows user to dr
 
 
 def enter_room():                               #Function that runs as a user enters a room
-    global room, items, items_copy, items1, items2, items3, items4, items5, items6, items7, items8, items_copy1, items_copy2, items_copy3, items_copy4, items_copy5, items_copy6, items_copy7, items_copy8
-
+    global room, items, items_copy, items1, items2, items3, items4, items5, items6, items7, items8, items_copy1, items_copy2, items_copy3, items_copy4, items_copy5, items_copy6, items_copy7, items_copy8, DragonVictory
     print ('You have entered the %s' %room)
 
     if room == "Outer Gates":                                   #If room is 'specified location'
+        print("So close to enemy gates.. Are there any keys I may need here? Maybe I should explore and return before taking any keys here.")
         items = {}                                              #Reset items to blank
         items_copy = {}                                         #Reset items_copy to blank
         for each in items1:                                     #Set items = items1
@@ -706,6 +803,7 @@ def enter_room():                               #Function that runs as a user en
             items_copy1[each_copy] = items_copy[each_copy]
 
     elif room == "Watchful Town":                               #Repeat item conditions for next room
+        print("The town is loyal to the Boglore's. They will know which way we came. Hopefully we can outrun them.")
         items = {}
         items_copy = {}
         for each in items2:
@@ -723,6 +821,7 @@ def enter_room():                               #Function that runs as a user en
             items_copy2[each_copy] = items_copy[each_copy]
 
     elif room == "Desolate Desert":                             #Repeat item conditions for next room
+        print("I don't know if I will be able to carry all the keys I find. I may have to drop one in an area that I will be able to reach later. It will still be there for me later.")
         items = {}
         items_copy = {}
         for each in items3:
@@ -740,6 +839,7 @@ def enter_room():                               #Function that runs as a user en
             items_copy3[each_copy] = items_copy[each_copy]
 
     elif room == "Vast Grasslands":                             #Repeat item conditions for next room
+        print("I am so close to home, but they blocked the road. It looks like I'll have to take the long way around.")
         items = {}
         items_copy = {}
         for each in items4:
@@ -757,6 +857,7 @@ def enter_room():                               #Function that runs as a user en
             items_copy4[each_copy] = items_copy[each_copy]
 
     elif room == "Enchanted City":                              #Repeat item conditions for next room
+        print("Maybe I can reach that extra key I couldn't carry from here. Hopefully I left it close enough to reach.")
         items = {}
         items_copy = {}
         for each in items5:
@@ -774,6 +875,7 @@ def enter_room():                               #Function that runs as a user en
             items_copy5[each_copy] = items_copy[each_copy]
 
     elif room == "Stormy Bay":                                  #Repeat item conditions for next room
+        print("Maybe I need to go back to the beginning and grab something I left behind. I should be able to take a shortcut this time.")
         items = {}
         items_copy = {}
         for each in items6:
@@ -791,6 +893,7 @@ def enter_room():                               #Function that runs as a user en
             items_copy6[each_copy] = items_copy[each_copy]
 
     elif room == "Frozen Pass":                                 #Repeat item conditions for next room
+        print("Almost there now. Only the Blackened Waste stands between me and my home now.")
         items = {}
         items_copy = {}
         for each in items7:
@@ -808,6 +911,7 @@ def enter_room():                               #Function that runs as a user en
             items_copy7[each_copy] = items_copy[each_copy]
 
     elif room == "Blackened Waste":                             #Repeat item conditions for next room
+        print("The Blackened Waste, home of the Dragon. I'll need luck on my side.")
         items = {}
         items_copy = {}
         for each in items8:
@@ -815,7 +919,12 @@ def enter_room():                               #Function that runs as a user en
         for each_copy in items_copy8:
             items_copy[each_copy] = items_copy8[each_copy]
 
-        add_item()
+        if DragonVictory == False:                              #If boss has not yet been defeated
+            boss_battle()                                       #Boss battle
+            add_item()                                          #Add item
+        else:
+            print("Actually, now that I think about it, this place isn't so bad without that dragon around.")
+            add_item()  
 
         items8 = {}
         items_copy8 = {}
@@ -825,14 +934,16 @@ def enter_room():                               #Function that runs as a user en
             items_copy8[each_copy] = items_copy[each_copy]
 
     else:
+        print("Finally I have made it home to Warm Hearth Castle.")
+        time.sleep(0.5)
         print ('Congratulations! You have avoided your enemies and reached your home.')
         exit()
-
-#add_item()
 
 
 
 #/**************************************************************************************************/
 
+intro()
 char_select()
-run()
+map()
+movement()
