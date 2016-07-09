@@ -101,58 +101,58 @@ def map():                                      #Function that shows the user wh
     global room
     global key
 
-    if proposed_horizontal == -1 and proposed_vertical == -1:               #If the player wants to move to this location
-        location = [['O', 'O', 'O'], ['O', 'O', 'O'], ['X', 'O', 'O']]      #List of the location
-        room = 'first'                                                      #Name of the room they want to enter
-        key = 'Castle Key'                                                  #Key they will need to enter room
-        back_up()                                                           #Run backup() function
+    if proposed_horizontal == -1 and proposed_vertical == -1:  # If the player wants to move to this location
+        location = [['O', 'O', 'O'], ['O', 'O', 'O'], ['X', 'O', 'O']]  # List of the location
+        room = 'Outer Gates'  # Name of the room they want to enter
+        key = ''  # Key they will need to enter room
+        back_up()  # Run backup() function
 
 
-    elif proposed_horizontal == 0 and proposed_vertical == -1:              #Repeat for next room
+    elif proposed_horizontal == 0 and proposed_vertical == -1:  # Repeat for next room
         location = [['O', 'O', 'O'], ['O', 'O', 'O'], ['O', 'X', 'O']]
-        room = 'second'
-        key = 'Castle Key'
+        room = 'Watchful Town'
+        key = ''
         back_up()
 
-    elif proposed_horizontal == 1 and proposed_vertical == -1:              #Repeat
+    elif proposed_horizontal == 1 and proposed_vertical == -1:  # Repeat
         location = [['O', 'O', 'O'], ['O', 'O', 'O'], ['O', 'O', 'X']]
-        room = 'third'
-        key = 'Castle Key'
+        room = 'Desolate Desert'
+        key = 'Desert Key'
         back_up()
 
-    if proposed_horizontal == -1 and proposed_vertical == 0:                #Repeat
+    if proposed_horizontal == -1 and proposed_vertical == 0:  # Repeat
         location = [['O', 'O', 'O'], ['X', 'O', 'O'], ['O', 'O', 'O']]
-        room = 'fourth'
-        key = 'Castle Key'
+        room = 'Stormy Bay'
+        key = 'Storm Key'
         back_up()
 
-    elif proposed_horizontal == 0 and proposed_vertical == 0:               #Repeat
+    elif proposed_horizontal == 0 and proposed_vertical == 0:  # Repeat
         location = [['O', 'O', 'O'], ['O', 'X', 'O'], ['O', 'O', 'O']]
-        room = 'fifth'
-        key = ''
+        room = 'Enchanted City'
+        key = 'Enchanted Key'
         back_up()
 
-    elif proposed_horizontal == 1 and proposed_vertical == 0:               #Repeat
+    elif proposed_horizontal == 1 and proposed_vertical == 0:  # Repeat
         location = [['O', 'O', 'O'], ['O', 'O', 'X'], ['O', 'O', 'O']]
-        room = 'sixth'
-        key = 'Castle Key'
+        room = 'Vast Grasslands'
+        key = 'Grass Key'
         back_up()
 
-    if proposed_horizontal == -1 and proposed_vertical == 1:                #Repeat
+    if proposed_horizontal == -1 and proposed_vertical == 1:  # Repeat
         location = [['X', 'O', 'O'], ['O', 'O', 'O'], ['O', 'O', 'O']]
-        room = 'seventh'
-        key = 'Castle Key'
+        room = 'Frozen Pass'
+        key = 'Frost Key'
         back_up()
 
-    elif proposed_horizontal == 0 and proposed_vertical == 1:               #Repeat
+    elif proposed_horizontal == 0 and proposed_vertical == 1:  # Repeat
         location = [['O', 'X', 'O'], ['O', 'O', 'O'], ['O', 'O', 'O']]
-        room = 'eighth'
-        key = ''
+        room = 'Blackened Waste'
+        key = 'Dark Key'
         back_up()
 
-    elif proposed_horizontal == 1 and proposed_vertical == 1:               #Repeat
+    elif proposed_horizontal == 1 and proposed_vertical == 1:  # Repeat
         location = [['O', 'O', 'X'], ['O', 'O', 'O'], ['O', 'O', 'O']]
-        room = 'ninth'
+        room = 'Warm Hearth Castle'
         key = 'Castle Key'
         back_up()
 
