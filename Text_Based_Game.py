@@ -1,7 +1,7 @@
-vertical = 0                    #initializing variables and lists used across multiple functions
-horizontal = 0
-proposed_vertical = 0
-proposed_horizontal = 0
+vertical = -1                    #initializing variables and lists used across multiple functions
+horizontal = -1
+proposed_vertical = -1
+proposed_horizontal = -1
 location = []
 new_location = []
 room = "blank"
@@ -25,8 +25,8 @@ items_copy5 = {'Enchanted Red Herring': 0}
 items6 = {'Frost Key': 2}
 items_copy6 = {'Frost Key': 2}
 
-items7 = {'Icy Sense of Humor': 0}
-items_copy7 = {'Icy Sense of Humor': 0}
+items7 = {"Iced Coffee - Still awake? You're almost done!": 0}
+items_copy7 = {"Iced Coffee - Still awake? You're almost done!": 0}
 
 items8 = {'Castle Key': 0}
 items_copy8 = {'Castle Key': 0}
@@ -269,15 +269,15 @@ class NM():         #First character class
         self.kn = kn                                    #Player knowledge
         self.du = du                                    #Player duty level
 
-class JS(NM):                                                              #Subclasses of first character class
+class Will_Forwind(NM):                                                              #Subclasses of first character class
     def __init__(self):
         super().__init__(at = 100, de = 100, he = 500, kn = 5, du = 8)     #Specific stats for each category
 
-class RS(NM):                                                              #Next Subclass
+class Maege_Forwind(NM):                                                              #Next Subclass
     def __init__(self):
         super().__init__(at = 120, de = 120, he = 460, kn = 7, du = 9)
 
-class NS(NM):                                                              #Next Subclass
+class Jevan_Forwind(NM):                                                              #Next Subclass
     def __init__(self):
         super().__init__(at = 140, de = 120, he = 420, kn = 8, du = 10)
 
@@ -290,15 +290,15 @@ class LN():                                             #Second character class
         self.kn = kn                                    #Opponent knowledge
         self.tr = tr                                    #Opponent treachery level
 
-class TL(LN):       #Subclasses of second character class
+class Tristane_Boglore(LN):       #Subclasses of second character class
     def __init__(self):
         super().__init__(at = 50, de = 80, he = 400, kn = 10, tr = 8)
 
-class JL(LN):                                           #Next Subclass
+class Brutus_Boglore(LN):                                           #Next Subclass
     def __init__(self):
         super().__init__(at = 125, de = 120, he = 400, kn = 4, tr = 5)
 
-class CL(LN):                                           #Next Subclass
+class Persephone_Boglore(LN):                                           #Next Subclass
     def __init__(self):
         super().__init__(at = 30, de = 0, he = 500, kn = 5, tr = 10)
 
@@ -383,31 +383,32 @@ def character_choice():                         #Function to make sure user inpu
 def char_select():      #Character selection function
     global player
     global play_num
+    global play_enter
     print ('Choose a character:') #Character Selection
-    print( 'Press 1 for JS.')
-    player = JS()       #Temporarily sets player to this character
+    print( 'Press 1 for Will Forwind.')
+    player = Will_Forwind()       #Temporarily sets player to this character
     stat()              #Displays stats for character
 
-    print( 'Press 2 for RS.')   #Repeat Character stats
-    player = RS()
+    print( 'Press 2 for Maege Forwind.')   #Repeat Character stats
+    player = Maege_Forwind()
     stat()
 
-    print( 'Press 3 for NS.')   #Repeat Character stats
-    player = NS()
+    print( 'Press 3 for Jevan Forwind.')   #Repeat Character stats
+    player = Jevan_Forwind()
     stat()
 
-    play_enter = int(input())     #Character Selection
+    play_enter = input()     #Character Selection
     character_choice()
-    play_num = int(play_num)
+    play_num = int(play_enter)
     if play_num == 1:           #If user input = 1
-        player = JS()           #Player is JS()
-        print ('You have chosen JS.')
-    elif play_num == 2:         #If user input = 2 player is RS()
-        player = RS()
-        print ('You have chosen RS')
-    elif play_num == 3:         #If user input = 3 player is NS()
-        player = NS()
-        print ('You have chosen NS')
+        player = Will_Forwind()           #Player is Will_Forwind()
+        print ('You have chosen Will Forwind.')
+    elif play_num == 2:         #If user input = 2 player is Maege Forwind()
+        player = Maege_Forwind()
+        print ('You have chosen Maege Forwind')
+    elif play_num == 3:         #If user input = 3 player is Jevan_Forwind()
+        player = Jevan_Forwind()
+        print ('You have chosen Jevan Forwind')
     else:
         print('That is not a valid response. You must enter 1, 2, or 3.')
         char_select()
@@ -577,34 +578,34 @@ def duel():         #Duel Function
     opponent = random.randint(0,1000)           #'opponent' = random number between 1 and 1000
     opp_num = 0
     if opponent <= 75:                          #If 'opponent' <= 75
-        if TLVictory == False:                  #If TL() boss has not been defeated yet.
-            opp = TL()                          #Opponent is now TL()
-            print("Your opponent is TL")
+        if TLVictory == False:                  #If Tristane_Boglore() boss has not been defeated yet.
+            opp = Tristane_Boglore()            #Opponent is now Tristane_Boglore()
+            print("Your opponent is Tristane Boglore")
             opp_stat()                          #Show stats
             opp_num = 1                         #Identifier to be used later after opponent is defeated
-        else:                                   #If TL() boss has already been defeated
+        else:                                   #If Tristane_Boglore() boss has already been defeated
             opp = Grunt()                       #Opponent is now Grunt()
             print("Your opponent is a Grunt")
             simple_stat()                       #Show smaller opponent's stats
 
     elif 75 < opponent <= 150:                  #If random number is between 75 and (including) 150
-        if JLVictory == False:                  #If JL() boss has not been defeated yet
-            opp = JL()                          #Opponent is now JL()
-            print("Your opponent is JL")
+        if JLVictory == False:                  #If Brutus_Boglore() boss has not been defeated yet
+            opp = Brutus_Boglore()              #Opponent is now Brutus_Boglore()
+            print("Your opponent is Brutus Boglore")
             opp_stat()                          #Show stats
             opp_num = 2                         #Identifier to be used later after opponent is defeated
-        else:                                   #If JL() boss has already been defeated
+        else:                                  #If Brutus_Boglore() boss has already been defeated
             opp = Knight()                      #Opponent is now Knight()
             print("Your opponent is a Knight")
             simple_stat()                       #Show smaller opponent's stats
 
     elif 150 < opponent <= 225:                 #If random number is between 150 and (including) 225
-        if CLVictory == False:                  #If CL() boss has not been defeated yet
-            opp = CL()                          #Opponent is now CL()
-            print ("Your opponent is CL")
+        if CLVictory == False:                  #If Persephone_Boglore() boss has not been defeated yet
+            opp = Persephone_Boglore()          #Opponent is now Persephone_Boglore()
+            print ("Your opponent is Persephone Boglore")
             opp_stat()                          #Show stats
             opp_num = 3                         #Identifier to be used later after opponent is defeated
-        else:                                   #If CL() boss has already been defeated
+        else:                                   #If Persephone_Boglore() boss has already been defeated
             opp = Ogre()                        #Opponent is now Ogre()
             print ("Your opponent is an Ogre")
             simple_stat()                       #Show smaller opponent's stats
