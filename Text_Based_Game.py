@@ -666,7 +666,7 @@ def duel():         #Duel Function
 
 def duel_chance():                              #duel_chance() function
     chance = random.randint(0,1000)             #chance = random number between 0 and 1000
-    if chance < 600:                            #If chance > 600
+    if chance < 600:                            #If chance < 600
         duel()                                  #Run duel function
 
 
