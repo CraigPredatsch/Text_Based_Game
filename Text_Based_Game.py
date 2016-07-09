@@ -772,8 +772,9 @@ def drop_item():                                #Function that allows user to dr
                 del inventory[option]                               #Remove item from user's inventory
             elif option not in inventory_copy:                      #If user input is not in inventory list
                 print('That is not a valid response.')
-        for each in inventory:                                      #Iterates through user's inventory list
-            inventory_copy[each] = inventory[each]                  #Copies inventory list over to inventory_copy
+        inventory_copy = {'':0}
+        for options in inventory:                                   #Setting inventory_copy = inventory
+            inventory_copy[options] = inventory[options]
     elif drop_choice == 2:                      #If user chooses not to drop an item
         add_item()                              #Re-run add_item() function
     else:                                       #If user types in number other than 1 or 2.
