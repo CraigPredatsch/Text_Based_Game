@@ -479,18 +479,18 @@ def player_at():        #Player Attack function
         time.sleep(1)
         print ("Critical hit.")
         time.sleep(1)
-        print ('You/re opponent has {} health remaining'.format(opp.he))
+        print ('Your opponent has {} health remaining'.format(opp.he))
     elif 10 < c < 90:                                                   #If 10 <= 'c' <= 90
         opp.he -= (player.at + duty_plus - opp_knowledge_plus)          #Adds up bonuses for player and opponent. Takes that much health away from opponent.
         time.sleep(1)
         print ('Successful hit.')
         time.sleep(1)
-        print ('You/re opponent has {} health remaining'.format(opp.he))
+        print ('Your opponent has {} health remaining'.format(opp.he))
     else:                                                               #If 'c' > 90
         time.sleep(1)
         print ('You have missed.')                                      #Attack misses. No damage done to opponent.
         time.sleep(1)
-        print ('You/re opponent has {} health remaining'.format(opp.he))
+        print ('Your opponent has {} health remaining'.format(opp.he))
 
 def opp_at():           #Opponent Attack Function
     treachery()   #Call treachery function
@@ -530,7 +530,7 @@ def opp_at():           #Opponent Attack Function
             print ('You have {} health remaining'.format(player.he))
     else:                                                                   #If 'd' > 80
         time.sleep(1)
-        print ('You/re opponent has missed.')                               #Attack misses. No damage to player.
+        print ('Your opponent has missed.')                               #Attack misses. No damage to player.
         time.sleep(1)
         print ('You have {} health remaining'.format(player.he))
 
