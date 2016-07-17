@@ -749,6 +749,8 @@ def add_item():                     #Function to add an item to the user's inven
 def drop_item():                                #Function that allows user to drop an item from their inventory list
     global item_total
     global item_weight
+    global inventory
+    global inventory_copy
     print ('Would you like to drop an item? You may be able to pick up another item if you drop something.')
     print ('Press 1 to choose an item to drop. Press 2 to avoid dropping an item.')
     enter_two = input()                         #User input
