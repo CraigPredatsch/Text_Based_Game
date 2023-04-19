@@ -1,6 +1,6 @@
 # Text_Based_Game
 
-This is an adventure puzzle game mapped out for you entirely with text.
+This is an adventure puzzle game mapped out for a player entirely with text.
 You will be given a map to look at at various times throughout the game and you will need to move your character around to reach your ultimate goal.
 
 The map is a square of 9 rooms (3 x 3) that requires the player to pick up and drop specific items that are placed in each of the rooms. There are weight limits and capacity limits to the number of items a player can hold. When items are dropped in one room, they will remain in that room even if the player moves to another room.
